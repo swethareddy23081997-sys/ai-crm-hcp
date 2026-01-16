@@ -26,16 +26,21 @@ interaction_text = st.text_area(
 )
 
 if st.button("Analyze Interaction"):
-    with st.spinner("Analyzing with Groq AI..."):
-        response = llm.invoke(f"""
-        Analyze the following HCP interaction and provide:
-        1. Summary
-        2. Sentiment
-        3. Next Best Action
-        4. Compliance Risk (Yes/No)
+    with st.spinner("Analyzing with LangGraph Agent..."):
+        result = agent.invoke({
+            "input_text": interaction_text
+        })
 
-        Interaction:
-        {interaction_text}
-        """)
     st.success("Analysis Complete")
-    st.markdown(response.content)
+
+    st.subheader("📌 Summary")
+    st.write(result["summary"])
+
+    st.subheader("😊 Sentiment")
+    st.write(result["sentiment"])
+
+    st.subheader("⚠️ Compliance Risk")
+    st.write(result["compliance"])
+
+    st.subheader("➡️ Next Best Action")
+    st.write(result["next_action"])
