@@ -1,3 +1,4 @@
+from agent import agent
 import streamlit as st
 from langchain_groq import ChatGroq
 import os
